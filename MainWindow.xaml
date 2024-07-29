@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MotionPlanning"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="1,0,-1,0">
-
+        Title="Motion Planning" Height="600" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="1" x:Name="headerText">
+            Robot Motion Planning
+        </TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2">
+            File Name:
+        </TextBlock>
+        <TextBox Grid.Column="2" Grid.Row="2" x:Name="fileNameText" Width="350" />
+        <Button Grid.Column="1" Grid.Row="3" Content="Choose G-Code file" x:Name="submitChooseFile" Click="submitChooseFile_Click" Grid.ColumnSpan="2" Height="20" Margin="0,0,150,0" Grid.RowSpan="3" VerticalAlignment="Top"/>
+        <Button Grid.Column="3" Grid.Row="3" Content="Validate file" x:Name="submitValidateFile" Click="submitValidateFile_Click" Grid.ColumnSpan="2" Height="20" Margin="0,0,150,0" Grid.RowSpan="3" VerticalAlignment="Top"/>
     </Grid>
 </Window>

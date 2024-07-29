@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionPlanning", "MotionPlanning.csproj", "{0994245D-C96D-414E-89D6-52BB384B396F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotionPlanning", "MotionPlanning.csproj", "{0994245D-C96D-414E-89D6-52BB384B396F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "..\UnitTest\UnitTest.csproj", "{48DBA467-B875-4180-BE83-6361134C6A86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0994245D-C96D-414E-89D6-52BB384B396F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0994245D-C96D-414E-89D6-52BB384B396F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0994245D-C96D-414E-89D6-52BB384B396F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48DBA467-B875-4180-BE83-6361134C6A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48DBA467-B875-4180-BE83-6361134C6A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48DBA467-B875-4180-BE83-6361134C6A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48DBA467-B875-4180-BE83-6361134C6A86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
