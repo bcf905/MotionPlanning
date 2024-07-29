@@ -66,6 +66,12 @@ namespace MotionPlanning.Auxiliary
                     case 90: // Absolute Positioning
                         statement = new AbsolutePositioning(gcode);
                         break;
+                    case 91: // Relative Positioning
+                        statement = new RelativePositioning(gcode);
+                        break;
+                    case 92: // Set Current Position
+                        statement = new SetCurrentPosition(gcode);
+                        break;
                 }
             }
             return statement;
