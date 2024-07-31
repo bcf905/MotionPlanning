@@ -13,5 +13,10 @@ namespace MotionPlanning.Auxiliary
             float factor = 25.4f;
             return inch * factor;
         }
+        public static float MillisecondsToSeconds(float ms)
+        {
+            float factor = 1000.0f;
+            return ms * factor;
+        }
     }
 }

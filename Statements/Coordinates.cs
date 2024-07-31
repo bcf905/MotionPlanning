@@ -25,6 +25,39 @@ namespace MotionPlanning.Statements
             this.Z = RegEx.returnFloat('Z', this.GCode);
         }
 
+        internal void setMinX(State.State st)
+        {
+            if (st.MinX > this.X) { st.MinX = this.X; }
+        }
+        internal void setMaxX(State.State st)
+        {
+            if (st.MaxX < this.X) { st.MaxX = this.X; }
+        }
+        internal void setMinY(State.State st)
+        {
+            if (st.MinY > this.Y) { st.MinY = this.Y; }
+        }
+        internal void setMaxY(State.State st)
+        {
+            if (st.MaxY < this.Y) { st.MaxY = this.Y; }
+        }
+        internal void setMinZ(State.State st)
+        {
+            if (st.MinZ > this.Z) { st.MinZ = this.Z; }
+        }
+        internal void setMaxZ(State.State st)
+        {
+            if (st.MaxZ < this.Z) { st.MaxZ = this.Z; }
+        }
+        internal void setBounds(State.State st)
+        {
+            this.setMinX(st);
+            this.setMaxX(st);
+            this.setMinY(st);
+            this.setMaxY(st);
+            this.setMinZ(st);
+            this.setMaxZ(st);
+        }
         internal void setStateCoordinates(State.State st)
         {
             if (!st.Millimeter)
@@ -46,9 +79,11 @@ namespace MotionPlanning.Statements
                 st.Y = this.Y;
                 st.Z = this.Z;
             }
+
+            this.setBounds(st);
         }
         public float X { get; set; }
-        public float Y { get; set; }  
+        public float Y { get; set; }
         public float Z { get; set; }
     }
 }

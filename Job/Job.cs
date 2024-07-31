@@ -22,6 +22,8 @@ namespace MotionPlanning.Job
         {
             statements.Add(statement);
         }
+        public State.State GetState() { return  st; }
+
         public List<string> GetURScript()
         {
             List<string> result = new List<string>();

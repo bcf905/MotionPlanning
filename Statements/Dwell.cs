@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,12 @@ namespace MotionPlanning.Statements
         }
         override public string URScript(State.State st)
         {
-            return "Dwell";
+            if (!this.WaitInSeconds)
+            {
+                this.WaitingTime = Auxiliary.Convert.MillisecondsToSeconds(this.WaitingTime);
+                this.WaitInSeconds = true;
+            }
+            return $"sleep({this.WaitingTime.ToString("f3", CultureInfo.InvariantCulture)}) \n";
         }
 
         private void getWaitingTime()
