@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MotionPlanning.Statements;
+using MotionPlanning.Job;
 
 namespace MotionPlanning.Auxiliary
 {
@@ -32,7 +33,7 @@ namespace MotionPlanning.Auxiliary
         {
             return RegEx.returnInteger(commandtype, gcode);
         }
-        public static IURScript Identify(string gcode)
+        public static IURScript Identify(string gcode, Job.Job job)
         {
             IURScript statement = new Invalid(gcode);
             char commandtype = getCommandType(gcode);
@@ -43,10 +44,14 @@ namespace MotionPlanning.Auxiliary
                 switch (commandnumber)
                 {
                     case 0: // Rapid Move
-                        statement = new RapidMove(gcode);
+                        RapidMove rapidmove = new RapidMove(gcode);
+                        job.setBounds(rapidmove.X, rapidmove.Y, rapidmove.Z);
+                        statement = (IURScript) rapidmove;
                         break;
                     case 1: // Linear Move
-                        statement = new LinearMove(gcode);
+                        LinearMove linearmove = new LinearMove(gcode);
+                        job.setBounds(linearmove.X, linearmove.Y, linearmove.Z);
+                        statement = (IURScript) linearmove;
                         break;
                     case 4: // Dwell
                         statement = new Dwell(gcode);
@@ -70,7 +75,9 @@ namespace MotionPlanning.Auxiliary
                         statement = new RelativePositioning(gcode);
                         break;
                     case 92: // Set Current Position
-                        statement = new SetCurrentPosition(gcode);
+                        SetCurrentPosition setcurrentposition = new SetCurrentPosition(gcode);
+                        job.setBounds(setcurrentposition.X, setcurrentposition.Y, setcurrentposition.Z);
+                        statement = (IURScript) setcurrentposition;
                         break;
                 }
             }

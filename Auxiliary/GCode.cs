@@ -19,7 +19,7 @@ namespace MotionPlanning.Auxiliary
 
             while ((line = reader.ReadLine()) != null )
             {
-                IURScript statement = Identifier.Identify(line);
+                IURScript statement = Identifier.Identify(line, job);
                 job.AddStatement(statement);
             }
 

@@ -15,6 +15,12 @@ namespace MotionPlanning.Job
         
         public Job() 
         {
+            this.MinX = float.MaxValue;
+            this.MaxX = float.MinValue;
+            this.MinY = float.MaxValue;
+            this.MaxY = float.MinValue;
+            this.MinZ = float.MaxValue;
+            this.MaxZ = float.MinValue;
             st = new State.State();
             statements = new List<IURScript>();
         }
@@ -36,6 +42,45 @@ namespace MotionPlanning.Job
             }
             return result;
         }
+        private void setMinX(float x)
+        {
+            if (this.MinX > x) { this.MinX = x; }
+        }
+        private void setMaxX(float x)
+        {
+            if (this.MaxX < x) { this.MaxX = x; }
+        }
+        private void setMinY(float y)
+        {
+            if (this.MinY > y) { this.MinY = y; }
+        }
+        private void setMaxY(float y)
+        {
+            if (this.MaxY < y) { this.MaxY = y; }
+        }
+        private void setMinZ(float z)
+        {
+            if (this.MinZ > z) { this.MinZ = z; }
+        }
+        private void setMaxZ(float z)
+        {
+            if (this.MaxZ < z) { this.MaxZ = z; }
+        }
+        public void setBounds(float x, float y, float z)
+        {
+            this.setMinX(x);
+            this.setMaxX(x);
+            this.setMinY(y);
+            this.setMaxY(y);
+            this.setMinZ(z);
+            this.setMaxZ(z);
+        }
+        public float MinX { get; set; }
+        public float MaxX { get; set; }
+        public float MinY { get; set; }
+        public float MaxY { get; set; }
+        public float MinZ { get; set; }
+        public float MaxZ { get; set; }
 
     }
 }
