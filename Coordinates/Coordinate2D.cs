@@ -18,8 +18,8 @@ namespace MotionPlanning.Coordinates
         {
             return (this.X, this.Y);
         }
-        float X { get; set; }
-        float Y { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
 
     }
 }
