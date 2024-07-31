@@ -53,5 +53,24 @@ namespace MotionPlanning.Workspace
             if ((job.MaxZ - job.MinZ) > this.Height) { return false; }
             return true;
         }
+        public void CalibrateJob(Job.Job job)
+        {
+            // Calculating the center of workspace
+            float deltaWorkspaceX = this.UpperX - this.LowerX;
+            float deltaWorkspaceY = this.UpperY - this.LowerY;
+            float centerWorkspaceX = deltaWorkspaceX / 2f;
+            float centerWorkspaceY = deltaWorkspaceY / 2f;
+
+            // Calculating the center of job
+            float deltaJobX = job.MaxX - job.MinX;
+            float deltaJobY = job.MaxY - job.MinY;
+            float centerJobX = deltaJobX / 2f;
+            float centerJobY = deltaJobY / 2f;
+
+            // Calculating shiftment
+            job.XShift = centerWorkspaceX - (centerJobX + job.MinX);
+            job.YShift = centerWorkspaceY - (centerJobY + job.MinY);
+            job.ZShift = 0 - job.MinZ;
+        }
     }
 }

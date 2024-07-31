@@ -21,6 +21,9 @@ namespace MotionPlanning.Job
             this.MaxY = float.MinValue;
             this.MinZ = float.MaxValue;
             this.MaxZ = float.MinValue;
+            this.XShift = 0;
+            this.YShift = 0;
+            this.ZShift = 0;
             st = new State.State();
             statements = new List<IURScript>();
         }
@@ -44,27 +47,45 @@ namespace MotionPlanning.Job
         }
         private void setMinX(float x)
         {
-            if (this.MinX > x) { this.MinX = x; }
+            if(x != float.MinValue)
+            {
+                if (this.MinX > x) { this.MinX = x; }
+            }
         }
         private void setMaxX(float x)
         {
-            if (this.MaxX < x) { this.MaxX = x; }
+            if (x != float.MinValue)
+            {
+                if (this.MaxX < x) { this.MaxX = x; }
+            }
         }
         private void setMinY(float y)
         {
-            if (this.MinY > y) { this.MinY = y; }
+            if (y != float.MinValue)
+            {
+                if (this.MinY > y) { this.MinY = y; }
+            }
         }
         private void setMaxY(float y)
         {
-            if (this.MaxY < y) { this.MaxY = y; }
+            if (y != float.MinValue)
+            {
+                if (this.MaxY < y) { this.MaxY = y; }
+            }
         }
         private void setMinZ(float z)
         {
-            if (this.MinZ > z) { this.MinZ = z; }
+            if (z != float.MinValue)
+            {
+                if (this.MinZ > z) { this.MinZ = z; }
+            }
         }
         private void setMaxZ(float z)
         {
-            if (this.MaxZ < z) { this.MaxZ = z; }
+            if (z != float.MinValue)
+            {
+                if (this.MaxZ < z) { this.MaxZ = z; }
+            }
         }
         public void setBounds(float x, float y, float z)
         {
@@ -81,6 +102,9 @@ namespace MotionPlanning.Job
         public float MaxY { get; set; }
         public float MinZ { get; set; }
         public float MaxZ { get; set; }
+        public float XShift { get; set; }
+        public float YShift { get; set; }
+        public float ZShift { get; set; }
 
     }
 }

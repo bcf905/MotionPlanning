@@ -12,9 +12,10 @@ namespace MotionPlanning.Statements
     {
         public Coordinates(string gcode) : base(gcode)
         {
-            this.X = 0;
-            this.Y = 0;
-            this.Z = 0;
+            this.X = float.MinValue;
+            this.Y = float.MinValue;
+            this.Z = float.MinValue;
+
             this.getCoordinates();
         }
 

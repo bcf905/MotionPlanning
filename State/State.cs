@@ -16,6 +16,9 @@ namespace MotionPlanning.State
             this.Z = 0;
             this.Relative = false;
             this.Millimeter = true;
+            this.XShift = 0;
+            this.YShift = 0;
+            this.ZShift = 0;
         }
 
         // When true the setting is relative positioning
@@ -28,5 +31,8 @@ namespace MotionPlanning.State
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
+        public float XShift { get; set; }
+        public float YShift { get; set; }
+        public float ZShift { get; set; }
     }
 }

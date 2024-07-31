@@ -33,7 +33,7 @@ namespace MotionPlanning
         /// <returns>Integer value</returns>
         public static int returnInteger(char name, string str)
         {
-            int x = 0;
+            int x = int.MinValue;
             string pattern = name + @"(?<value>\d+)";
             Regex rg = new Regex(pattern, RegexOptions.IgnoreCase);
             var match = rg.Match(str);
@@ -53,7 +53,7 @@ namespace MotionPlanning
         /// <returns>Float value</returns>
         public static float returnFloat(char name, string str)
         {
-            float x = 0f;
+            float x = float.MinValue;
             string pattern = name + @"(?<value>[0-9]+([.][0-9]+)*)";
             Regex rg = new Regex(pattern, RegexOptions.IgnoreCase);
             var match = rg.Match(str);
