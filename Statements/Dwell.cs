@@ -10,6 +10,13 @@ namespace MotionPlanning.Statements
 {
     public class Dwell : Statement
     {
+        /// <summary>
+        ///	A class for the G-Code command: Dwell
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="gcode">A string containing the full G-Code statement</param>
+        /// <returns>Null</returns>
         public Dwell(string gcode) : base(gcode)
         {
             this.Valid = false;
@@ -19,6 +26,15 @@ namespace MotionPlanning.Statements
             this.WaitingTime = float.MinValue;
             this.getWaitingTime();
         }
+
+        /// <summary>
+        ///	A method to return an URScript statement
+        ///	for the G-Code command: Dwell
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="st">A State object that provides settings</param>
+        /// <returns>A string containing the URScript statement</returns>
         override public string URScript(State.State st)
         {
             if (!this.WaitInSeconds)
@@ -29,6 +45,13 @@ namespace MotionPlanning.Statements
             return $"sleep({this.WaitingTime.ToString("f3", CultureInfo.InvariantCulture)}) \n";
         }
 
+        /// <summary>
+        ///	A method that gets the time parameter 
+        ///	from the G-Code command: Dwell
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <returns>Void</returns>
         private void getWaitingTime()
         {
             // Getting waiting time in milliseconds
@@ -50,7 +73,12 @@ namespace MotionPlanning.Statements
             }
 
         }
+
+        // Indicates wether WaitingTime is in seconds or milliseconds
+        // Is true if time is in seconds
         public bool WaitInSeconds { get; set; }
+
+        // Contains the time of waiting
         public float WaitingTime { get; set; }
     }
 }
