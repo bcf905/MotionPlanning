@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace MotionPlanning.State
 {
-    // A container for a job's settings and current position 
     public class State
     {
+        /// <summary>
+        ///	A container for a job's settings and current position 
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <returns>Null</returns>
         public State() 
         {
             this.X = 0;
@@ -28,11 +33,22 @@ namespace MotionPlanning.State
         // When false the setting is inches
         public bool Millimeter { get; set; }
 
+        // Current X position
         public float X { get; set; }
+
+        // Current Y position
         public float Y { get; set; }
+
+        // Current Z position
         public float Z { get; set; }
+
+        // Shifting value for X - used to center job in workspace
         public float XShift { get; set; }
+
+        // Shifting value for Y - used to center job in workspace
         public float YShift { get; set; }
+
+        // Shifting value for Z - used to center job in workspace
         public float ZShift { get; set; }
     }
 }
