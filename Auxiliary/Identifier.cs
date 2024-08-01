@@ -8,8 +8,21 @@ using MotionPlanning.Job;
 
 namespace MotionPlanning.Auxiliary
 {
+    /// <summary>
+    ///	Auxiliary functions to identify G-Code
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    /// <returns>Void</returns>
     public class Identifier
     {
+        /// <summary>
+        ///	A method that identifies a G-Code command type
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="gcode">A string containing a G-Code statement</param>
+        /// <returns>A char. Either 'G' or 'M'. Contains char.MinValue if command type not found</returns>
         private static char getCommandType(string gcode)
         {
             string pattern = @"^G";
@@ -29,10 +42,28 @@ namespace MotionPlanning.Auxiliary
             }
             return result;
         }
+
+        /// <summary>
+        ///	A method that identifies a G-Code command number
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="commandtype">A char containing the command type</param>
+        /// <param name="gcode">A string containing a G-Code statement</param>
+        /// <returns>A int containing the command number. Contains int.MinValue if command number not found</returns>
         private static int getCommandNumber(char commandtype, string gcode)
         {
             return RegEx.returnInteger(commandtype, gcode);
         }
+
+        /// <summary>
+        ///	A method that identifies a G-Code statement
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="gcode">A string containing a G-Code statement</param>
+        /// <param name="job">A Job object to store bounds</param>
+        /// <returns>A int containing the command number. Contains int.MinValue if command number not found</returns>
         public static IURScript Identify(string gcode, Job.Job job)
         {
             IURScript statement = new Invalid(gcode);

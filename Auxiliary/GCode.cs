@@ -10,8 +10,21 @@ using MotionPlanning.Statements;
 
 namespace MotionPlanning.Auxiliary
 {
+    /// <summary>
+    ///	Auxiliary functions to handle G-Code
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    /// <returns>Void</returns>
     public class GCode
     {
+        /// <summary>
+        ///	A method that identifies G-Code statements from a streamreader
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="reader">A streamreader connection to a G-Code file</param>
+        /// <returns>A Job object with all the statements included</returns>
         public static Job.Job Read(StreamReader reader)
         {
             Job.Job job = new();
