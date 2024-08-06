@@ -23,7 +23,6 @@ namespace MotionPlanning.Job
         /// <returns>Null</returns>
         public Job(Workspace.Workspace workspace) 
         {
-            this.wp = workspace;
             this.MinX = float.MaxValue;
             this.MaxX = float.MinValue;
             this.MinY = float.MaxValue;
@@ -33,8 +32,7 @@ namespace MotionPlanning.Job
             this.XShift = 0;
             this.YShift = 0;
             this.ZShift = 0;
-            st = new State.State();
-            st.Workspace = workspace;
+            st = new State.State(workspace);
             statements = new List<IURScript>();
         }
 

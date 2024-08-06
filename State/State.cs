@@ -14,7 +14,7 @@ namespace MotionPlanning.State
         /// <remarks>
         /// </remarks>
         /// <returns>Null</returns>
-        public State() 
+        public State(Workspace.Workspace workspace) 
         {
             this.X = 0;
             this.Y = 0;
@@ -24,6 +24,7 @@ namespace MotionPlanning.State
             this.XShift = 0;
             this.YShift = 0;
             this.ZShift = 0;
+            this.Workspace = workspace;
         }
 
         // When true the setting is relative positioning
