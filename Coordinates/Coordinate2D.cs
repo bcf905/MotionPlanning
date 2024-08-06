@@ -13,8 +13,8 @@ namespace MotionPlanning.Coordinates
         /// </summary>
         /// <remarks>
         /// </remarks>
-        /// <param name="x">The coordinates x value</param>
-        /// <param name="y">The coordinates y value</param>
+        /// <param name="x">The coordinate's x value</param>
+        /// <param name="y">The coordinate's y value</param>
         /// <returns>Void</returns>
         public Coordinate2D(float x, float y) 
         {
