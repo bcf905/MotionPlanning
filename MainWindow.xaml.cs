@@ -28,7 +28,7 @@ namespace MotionPlanning
         bool fileValid = false;
         bool conversionValid = false;
         bool workspaceValid = false;
-        Workspace.Workspace? wp;
+        Workspace.Workspace? workspace;
         Job.Job? job;
 
         public MainWindow()
@@ -182,7 +182,7 @@ namespace MotionPlanning
 
                 Coordinates.Coordinate2D coord1 = new(coord1X, coord1Y);
                 Coordinates.Coordinate2D coord2 = new(coord2X, coord2Y);
-                Workspace.Workspace workspace = new(coord1, coord2, height, offsetZ);
+                workspace = new(coord1, coord2, height, offsetZ);
                 string result = Auxiliary.RobotConnection.SendMessage(txtIP.Text, workspace.GetTestScript());
                 MessageBox.Show(result, "Result", MessageBoxButton.OK, MessageBoxImage.Information);
                 workspaceValid = true;
@@ -197,27 +197,32 @@ namespace MotionPlanning
 
         private void submitConvert_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateFile())
+            if (!workspaceValid)
             {
-                try
-                {
-                    // Open file
-                    StreamReader reader = new StreamReader(fileNameText.Text);
-
-                    job = GCode.Read(reader);
-                    conversionValid = true;
-                    MessageBox.Show("G-Code converted to URSCript.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    conversionValid = true;
-                    IsReady();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show("Workspace must pass test before converting G-Code!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                MessageBox.Show("G-Code file selected is not valid!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (ValidateFile())
+                {
+                    try
+                    {
+                        // Open file
+                        StreamReader reader = new StreamReader(fileNameText.Text);
+                        job = GCode.Read(reader, workspace);
+                        conversionValid = true;
+                        MessageBox.Show("G-Code converted to URSCript.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        IsReady();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("G-Code file selected is not valid!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

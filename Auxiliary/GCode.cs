@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Shapes;
 using MotionPlanning.Job;
 using MotionPlanning.Statements;
+using MotionPlanning.Workspace;
 
 namespace MotionPlanning.Auxiliary
 {
@@ -25,9 +26,9 @@ namespace MotionPlanning.Auxiliary
         /// </remarks>
         /// <param name="reader">A streamreader connection to a G-Code file</param>
         /// <returns>A Job object with all the statements included</returns>
-        public static Job.Job Read(StreamReader reader)
+        public static Job.Job Read(StreamReader reader, Workspace.Workspace workspace)
         {
-            Job.Job job = new();
+            Job.Job job = new(workspace);
             string? line;
 
             while ((line = reader.ReadLine()) != null )

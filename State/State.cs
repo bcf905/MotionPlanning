@@ -50,5 +50,8 @@ namespace MotionPlanning.State
 
         // Shifting value for Z - used to center job in workspace
         public float ZShift { get; set; }
+
+        // A container for the current workspace
+        public Workspace.Workspace Workspace { get; set; }
     }
 }

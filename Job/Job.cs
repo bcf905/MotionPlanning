@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MotionPlanning.Statements;
 using MotionPlanning.State;
+using MotionPlanning.Workspace;
 
 namespace MotionPlanning.Job
 {
@@ -14,13 +15,15 @@ namespace MotionPlanning.Job
         State.State st;
 
         /// <summary>
-        ///	A container for a job's statements, state and boundaries
+        ///	A container for a job's statements, workspace, state and boundaries
         /// </summary>
         /// <remarks>
         /// </remarks>
+        /// <param workspace="statement">A Workspace object for the current workspace</param>
         /// <returns>Null</returns>
-        public Job() 
+        public Job(Workspace.Workspace workspace) 
         {
+            this.wp = workspace;
             this.MinX = float.MaxValue;
             this.MaxX = float.MinValue;
             this.MinY = float.MaxValue;
@@ -31,6 +34,7 @@ namespace MotionPlanning.Job
             this.YShift = 0;
             this.ZShift = 0;
             st = new State.State();
+            st.Workspace = workspace;
             statements = new List<IURScript>();
         }
 
