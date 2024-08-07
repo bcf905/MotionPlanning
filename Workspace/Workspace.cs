@@ -204,32 +204,6 @@ namespace MotionPlanning.Workspace
             return true;
         }
 
-        /// <summary>
-        ///	A method that finding the shifting values in order to center the job in workspace
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <param name="job">A Job object</param>
-        /// <returns>Void</returns>
-        public void CalibrateJob(Job.Job job)
-        {
-            // Calculating the center of workspace
-            float deltaWorkspaceX = this.UpperX - this.LowerX;
-            float deltaWorkspaceY = this.UpperY - this.LowerY;
-            float centerWorkspaceX = deltaWorkspaceX / 2f;
-            float centerWorkspaceY = deltaWorkspaceY / 2f;
-
-            // Calculating the center of job
-            float deltaJobX = job.MaxX - job.MinX;
-            float deltaJobY = job.MaxY - job.MinY;
-            float centerJobX = deltaJobX / 2f;
-            float centerJobY = deltaJobY / 2f;
-
-            // Calculating shiftment
-            job.XShift = centerWorkspaceX - (centerJobX + job.MinX);
-            job.YShift = centerWorkspaceY - (centerJobY + job.MinY);
-            job.ZShift = 0 - job.MinZ;
-        }
         // UR5e IP Addess
         public string IPAddress { get; set; }
         

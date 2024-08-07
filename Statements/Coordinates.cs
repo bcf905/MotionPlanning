@@ -53,33 +53,38 @@ namespace MotionPlanning.Statements
             // Converts to millimeter if coordinates is inches
             if (!st.Millimeter)
             {
-                this.X = Auxiliary.Convert.InchesToMillimeter(this.X);
-                this.Y = Auxiliary.Convert.InchesToMillimeter(this.Y);
-                this.Z = Auxiliary.Convert.InchesToMillimeter(this.Z);
+                this.X = (this.X == float.MinValue) ? float.MinValue : Auxiliary.Convert.InchesToMillimeter(this.X);
+                this.Y = (this.Y == float.MinValue) ? float.MinValue : Auxiliary.Convert.InchesToMillimeter(this.Y);
+                this.Z = (this.Z == float.MinValue) ? float.MinValue : Auxiliary.Convert.InchesToMillimeter(this.Z);
             }
 
             // Adding coordinates from State object if setting is relative positioning
             if (st.Relative)
             {
-                this.X += st.X;
-                this.Y += st.Y;
-                this.Z += st.Z;
+                this.X = (this.X == float.MinValue) ? st.X : st.X + this.X;
+                this.Y = (this.Y == float.MinValue) ? st.Y : st.Y + this.Y;
+                this.Z = (this.Z == float.MinValue) ? st.Z : st.Z + this.Z;
 
             }
 
             // Shifting values
-            this.X += st.XShift;
-            this.Y += st.YShift;
-            this.Z += st.ZShift;
+            this.X = (this.X == float.MinValue) ? st.X : this.X + st.XShift;
+            this.Y = (this.Y == float.MinValue) ? st.Y : this.Y + st.YShift;
+            this.Z = (this.Z == float.MinValue) ? st.Z : this.Z + st.ZShift;
 
 
         }
 
         internal void SetCurrentCoordinates(State.State st)
         {
-            st.X = this.X;
-            st.Y = this.Y;
-            st.Z = this.Z;
+            // Setting x value if parameter is present i G-Code
+            st.X = (this.X == float.MinValue) ? st.X : this.X;
+
+            // Setting y value if parameter is present i G-Code
+            st.Y = (this.Y == float.MinValue) ? st.Y : this.Y;
+
+            // Setting z value if parameter is present i G-Code
+            st.Z = (this.Z == float.MinValue) ? st.Z : this.Z;
         }
 
         internal string GetPose(State.State st)
@@ -87,38 +92,14 @@ namespace MotionPlanning.Statements
             // creating pose
             string pose = $"p[";
 
-            if (this.X > float.MinValue)
-            {
-                // Setting x value if parameter is present i G-Code
-                pose += $"{this.X},";
-            }
-            else
-            {
-                // Setting current x value of pararmeter not present in G-Code
-                pose += $"{st.X},";
-            }
+            // Setting x value if parameter is present i G-Code
+            pose += (this.X == float.MinValue) ? $"{st.X}," : $"{this.X},";
 
-            if (this.Y > float.MinValue)
-            {
-                // Setting y value if parameter is present i G-Code
-                pose += $"{this.Y},";
-            }
-            else
-            {
-                // Setting current y value of pararmeter not present in G-Code
-                pose += $"{st.Y},";
-            }
+            // Setting y value if parameter is present i G-Code
+            pose += (this.Y == float.MinValue) ? $"{st.Y}," : $"{this.Y},";
 
-            if (this.Z > float.MinValue)
-            {
-                // Setting z value if parameter is present i G-Code
-                pose += $"{this.Z},";
-            }
-            else
-            {
-                // Setting current z value of pararmeter not present in G-Code
-                pose += $"{st.Z},";
-            }
+            // Setting z value if parameter is present i G-Code
+            pose += (this.Z == float.MinValue) ? $"{st.Z}," : $"{this.Z},";
 
             // Getting toolpostition
             pose += st.Workspace.GetToolposition();
@@ -139,8 +120,13 @@ namespace MotionPlanning.Statements
         /// <returns>A float containing the distance in millimeter</returns>
         internal double Distance(State.State st)
         {
+            float x, y;
+
+            x = (this.X == float.MinValue) ? st.X : this.X;
+            y = (this.Y == float.MinValue) ? st.Y : this.Y;
+
             // Calculating the distance in statement            
-            return Math.Sqrt(Math.Pow(this.X - st.X, 2.0f) + Math.Pow(this.Y - st.Y, 2.0f));
+            return Math.Sqrt(Math.Pow(x - st.X, 2.0f) + Math.Pow(y - st.Y, 2.0f));
 
         }
         // Contains the x coordinate from the G-Code

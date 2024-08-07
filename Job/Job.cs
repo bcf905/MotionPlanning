@@ -13,7 +13,7 @@ namespace MotionPlanning.Job
     {
         List<IURScript> statements;
         State.State st;
-
+        Workspace.Workspace workspace;
         /// <summary>
         ///	A container for a job's statements, workspace, state and boundaries
         /// </summary>
@@ -21,7 +21,7 @@ namespace MotionPlanning.Job
         /// </remarks>
         /// <param workspace="statement">A Workspace object for the current workspace</param>
         /// <returns>Null</returns>
-        public Job(Workspace.Workspace workspace) 
+        public Job(Workspace.Workspace wsp) 
         {
             this.MinX = float.MaxValue;
             this.MaxX = float.MinValue;
@@ -29,11 +29,42 @@ namespace MotionPlanning.Job
             this.MaxY = float.MinValue;
             this.MinZ = float.MaxValue;
             this.MaxZ = float.MinValue;
-            this.XShift = 0;
-            this.YShift = 0;
-            this.ZShift = 0;
-            st = new State.State(workspace);
+            this.workspace = wsp;
+            st = new(this.workspace);
             statements = new List<IURScript>();
+        }
+
+        /// <summary>
+        ///	A method that finds the shifting values in order to center the job in workspace
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="workspace">A Workspace object</param>
+        /// <returns>Void</returns>
+        public void CalibrateJob(Workspace.Workspace workspace)
+        {
+            // Calculating the center of workspace
+            float deltaWorkspaceX = workspace.UpperX - workspace.LowerX;
+            float deltaWorkspaceY = workspace.UpperY - workspace.LowerY;
+            float centerWorkspaceX = deltaWorkspaceX / 2f;
+            float centerWorkspaceY = deltaWorkspaceY / 2f;
+
+            // Calculating the center of job
+            float deltaJobX = this.MaxX - this.MinX;
+            float deltaJobY = this.MaxY - this.MinY;
+            float centerJobX = deltaJobX / 2f;
+            float centerJobY = deltaJobY / 2f;
+
+            // Calculating shiftment
+            this.XShift = centerWorkspaceX - (centerJobX + this.MinX);
+            this.YShift = centerWorkspaceY - (centerJobY + this.MinY);
+            this.ZShift = 0 - this.MinZ;
+
+            // Setting shifting values in State object
+            st.XShift = this.XShift;
+            st.YShift = this.YShift;
+            st.ZShift = this.ZShift;
+
         }
 
         /// <summary>
@@ -55,7 +86,7 @@ namespace MotionPlanning.Job
         /// </remarks>
         /// <param name="statement">An IURScript containing a statement</param>
         /// <returns>Void</returns>
-        public State.State GetState() { return  st; }
+        public State.State GetState() { return  this.st; }
 
 
         /// <summary>
@@ -72,7 +103,7 @@ namespace MotionPlanning.Job
             {
                 if (statement.Valid)
                 {
-                    result.Add(statement.URScript(st));
+                    result.Add(statement.URScript(this.st));
                 }
             }
             return result;
@@ -185,6 +216,7 @@ namespace MotionPlanning.Job
             this.setMaxY(y);
             this.setMinZ(z);
             this.setMaxZ(z);
+            this.CalibrateJob(workspace);
         }
 
         // A job's minimum X value
