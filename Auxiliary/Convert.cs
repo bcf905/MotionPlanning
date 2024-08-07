@@ -39,5 +39,19 @@ namespace MotionPlanning.Auxiliary
             float factor = 1000.0f;
             return ms * factor;
         }
+
+        /// <summary>
+        ///	A method that converts feedrate to the time it takes to travel the distance
+        ///	Used to override the velocity of UR5e
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="feedrate">Printers travel distance (mm) in 1 minute</param>
+        /// <param name="distance">Distance the UR5e has to move</param>
+        /// <returns>The seconds it takes to travel the distance.</returns>
+        public static double FeedrateToTime(float feedrate, double distance)
+        {
+            return distance / (feedrate / 60f);
+        }
     }
 }

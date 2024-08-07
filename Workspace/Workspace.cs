@@ -28,6 +28,10 @@ namespace MotionPlanning.Workspace
             this.SetArea(coord1, coord2);
             this.Height = height;
             this.OffsetZ = offset;
+            this.IPAddress = "localhost";
+            this.Feedrate = 1000f;
+            this.Extrude = 0.5f;
+            this.Toolposition = new Coordinate3D(0, 0, 0);
         }
 
         /// <summary>
@@ -226,8 +230,24 @@ namespace MotionPlanning.Workspace
             job.YShift = centerWorkspaceY - (centerJobY + job.MinY);
             job.ZShift = 0 - job.MinZ;
         }
+        // UR5e IP Addess
+        public string IPAddress { get; set; }
+        
+        // Feedrate of printer - used to calculate velocity
+        public float Feedrate { get; set; }
+
+        // Amount of extrusion - value between 0 and 1
+        public float Extrude { get; set; }
+
+        public Coordinate3D Toolposition { get; set; }
 
 
+        public string GetToolposition()
+        {
+            string tp = $"{this.Toolposition.X},{this.Toolposition.Y},{this.Toolposition.Z}";
+            return tp;
+
+        }
         /// <summary>
         ///	A method that returns a URScript to test the bounds of the workspace
         /// </summary>

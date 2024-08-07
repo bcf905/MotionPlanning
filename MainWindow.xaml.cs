@@ -183,6 +183,9 @@ namespace MotionPlanning
                 Coordinates.Coordinate2D coord1 = new(coord1X, coord1Y);
                 Coordinates.Coordinate2D coord2 = new(coord2X, coord2Y);
                 workspace = new(coord1, coord2, height, offsetZ);
+                workspace.IPAddress = txtIP.Text;
+                workspace.Feedrate = feedrate;
+                workspace.Extrude = extrude;
                 string result = Auxiliary.RobotConnection.SendMessage(txtIP.Text, workspace.GetTestScript());
                 MessageBox.Show(result, "Result", MessageBoxButton.OK, MessageBoxImage.Information);
                 workspaceValid = true;

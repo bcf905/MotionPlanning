@@ -34,10 +34,18 @@ namespace MotionPlanning.Statements
         /// <returns>A string containing the URScript statement</returns>
         override public string URScript(State.State st)
         {
-            return $"Linear Move - " +
-                $"X:{this.X.ToString("f3", CultureInfo.InvariantCulture)}, " +
-                $"Y:{this.Y.ToString("f3", CultureInfo.InvariantCulture)}, " +
-                $"Z:{this.Z.ToString("f3", CultureInfo.InvariantCulture)}";
+            this.setStateCoordinates(st);
+
+            // Calculating the velocity to move robot 
+            double velocity = Auxiliary.Convert.FeedrateToTime(st.Workspace.Feedrate, this.Distance(st));
+
+            string script =  $"movel({this.GetPose(st)}, t={velocity.ToString("f3", CultureInfo.InvariantCulture)})\n";
+
+            // Setting current coordinate values
+            this.SetCurrentCoordinates(st);
+
+            // returning URScript command
+            return script;
         }
     }
 }
