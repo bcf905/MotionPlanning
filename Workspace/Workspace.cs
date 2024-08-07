@@ -213,8 +213,17 @@ namespace MotionPlanning.Workspace
         // Amount of extrusion - value between 0 and 1
         public float Extrude { get; set; }
 
+        // Tool-position used to create a pose
         public Coordinate3D Toolposition { get; set; }
 
+
+        /// <summary>
+        ///	A method that creates the tool-position's string value
+        ///	used when creaeting a pose
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <returns>A string containing the tool-position</returns>
 
         public string GetToolposition()
         {

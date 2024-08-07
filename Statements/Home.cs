@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MotionPlanning.Statements
 {
-    public class Home : Statement
+    public class Home : Coordinates
     {
         /// <summary>
         ///	A class for the G-Code command: Home
@@ -32,7 +33,18 @@ namespace MotionPlanning.Statements
         /// <returns>A string containing the URScript statement</returns>
         override public string URScript(State.State st)
         {
-            return "Home";
+            this.setStateCoordinates(st);
+
+            // Calculating the velocity to move robot 
+            double velocity = Auxiliary.Convert.FeedrateToTime(st.Workspace.Feedrate, this.Distance(st));
+
+            string script = $"movel({this.GetPose(st)}, t={velocity.ToString("f3", CultureInfo.InvariantCulture)})\n";
+
+            // Setting current coordinate values
+            this.SetCurrentCoordinates(st);
+
+            // returning URScript command
+            return script;
         }
     }
 }

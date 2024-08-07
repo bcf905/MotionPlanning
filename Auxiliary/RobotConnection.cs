@@ -11,6 +11,12 @@ namespace MotionPlanning.Auxiliary
 {
     public class RobotConnection
     {
+        /// <summary>
+        ///	A method that is only used to test connection to UR5e
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <returns>A string containing test result</returns>
         public static string TestConnection()
         {
             string result = "Message send!";
@@ -34,6 +40,14 @@ namespace MotionPlanning.Auxiliary
             return result;
         }
 
+        /// <summary>
+        ///	A method that sends a message or script to UR5e
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="ip">IP address to robot</param>
+        /// <param name="message">The message send to robot</param>
+        /// <returns>A string containing the result</returns>
         public static string SendMessage(string ip, string message)
         {
             int port = 30001;
