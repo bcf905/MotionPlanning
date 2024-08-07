@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MotionPlanning.Coordinates;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -33,10 +34,13 @@ namespace MotionPlanning.Statements
         /// <returns>A string containing the URScript statement</returns>
         override public string URScript(State.State st)
         {
-            this.setStateCoordinates(st);
+            // Getting the destination's coordinate (center of workspace)
+            this.X = st.Workspace.Origin.X;
+            this.Y = st.Workspace.Origin.Y;
+            this.Z = st.Workspace.Origin.Z;
 
             // Calculating the velocity to move robot 
-            double velocity = Auxiliary.Convert.FeedrateToTime(st.Workspace.Feedrate, this.Distance(st));
+            double velocity = Auxiliary.Convert.FeedrateToTime(1000, this.Distance(st));
 
             string script = $"movel({this.GetPose(st)}, t={velocity.ToString("f3", CultureInfo.InvariantCulture)})\n";
 

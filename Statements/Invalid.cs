@@ -33,7 +33,7 @@ namespace MotionPlanning.Statements
         /// <returns>A string containing the URScript statement</returns>
         override public string URScript(State.State st)
         {
-            return "Not a valid command.";
+            return "";
         }
 
     }

@@ -17,7 +17,8 @@ namespace MotionPlanning.Statements
         /// <returns>Null</returns>
         public Leveling(string gcode) : base(gcode)
         {
-            this.Valid = true;
+            // not implemented => invalid statement
+            this.Valid = false;
             this.CommandType = 'G';
             this.CommandNumber = 29;
         }
@@ -32,7 +33,8 @@ namespace MotionPlanning.Statements
         /// <returns>A string containing the URScript statement</returns>
         override public string URScript(State.State st)
         {
-            return "Leveling";
+            // not possible to use probe
+            return "";
         }
     }
 }

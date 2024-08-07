@@ -33,7 +33,7 @@ namespace MotionPlanning.Statements
         override public string URScript(State.State st)
         {
             st.Relative = false;
-            return "Absolute Positioning";
+            return "";
         }
     }
 }
