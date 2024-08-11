@@ -107,7 +107,7 @@ namespace MotionPlanning.Auxiliary
                         break;
                     case 92: // Set Current Position
                         SetCurrentPosition setcurrentposition = new SetCurrentPosition(gcode);
-                        job.setBounds(setcurrentposition.X, setcurrentposition.Y, setcurrentposition.Z);
+                        //job.setBounds(setcurrentposition.X, setcurrentposition.Y, setcurrentposition.Z);
                         statement = (IURScript) setcurrentposition;
                         break;
                 }

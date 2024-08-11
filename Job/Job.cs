@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MotionPlanning.Statements;
 using MotionPlanning.State;
 using MotionPlanning.Workspace;
+using MotionPlanning.Coordinates;
 
 namespace MotionPlanning.Job
 {
@@ -58,7 +59,7 @@ namespace MotionPlanning.Job
             // Calculating shiftment
             this.XShift = centerWorkspaceX - (centerJobX + this.MinX);
             this.YShift = centerWorkspaceY - (centerJobY + this.MinY);
-            this.ZShift = 0 - this.MinZ;
+            this.ZShift = workspace.OffsetZ - this.MinZ;
 
             // Setting shifting values in State object
             st.XShift = this.XShift;
@@ -98,6 +99,8 @@ namespace MotionPlanning.Job
         /// <returns>Void</returns>
         public List<string> GetURScript()
         {
+            this.CalibrateJob(workspace);
+
             List<string> result = new List<string>();
             foreach (IURScript statement in statements)
             {
@@ -216,7 +219,6 @@ namespace MotionPlanning.Job
             this.setMaxY(y);
             this.setMinZ(z);
             this.setMaxZ(z);
-            this.CalibrateJob(workspace);
         }
 
         // A job's minimum X value

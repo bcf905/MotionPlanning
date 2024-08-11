@@ -33,7 +33,23 @@ namespace MotionPlanning.Statements
         /// <returns>A string containing the URScript statement</returns>
         override public string URScript(State.State st)
         {
-            return $"Set Current Position";
+            // Calculating new shifting values
+
+            if (this.X == float.MinValue && this.Y == float.MinValue && this.Z == float.MinValue)
+            {
+                // no coordinates provided => all axes is set to zero
+                st.XShift = st.X;
+                st.YShift = st.Y;
+                st.ZShift = st.Z;
+            }
+            else
+            {
+                st.XShift = (this.X == float.MinValue) ? st.XShift : (st.X - this.X) ;
+                st.YShift = (this.Y == float.MinValue) ? st.YShift : (st.Y - this.Y);
+                st.ZShift = (this.Z == float.MinValue) ? st.ZShift : (st.Z - this.Z);
+            }
+
+            return "";
         }
     }
 }

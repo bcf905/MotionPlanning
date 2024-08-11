@@ -231,7 +231,17 @@ namespace MotionPlanning
 
         private void submitStartJob_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                string result = Auxiliary.RobotConnection.SendMessage(workspace.IPAddress, URScript.CreateScript(job));
 
+                MessageBox.Show("Instructions send to robot", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
+
